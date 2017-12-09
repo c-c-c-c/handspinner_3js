@@ -520,6 +520,21 @@ body {
   font-size: 14px;
   letter-spacing: 1px; }
 
+#stage_bg {
+  text-align: center; }
+
+canvas {
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: auto;
+  width: 960px;
+  height: 6000px;
+  z-index: -1;
+  overflow: hidden;
+  position: absolute; }
+
 #wrapper, #footer_wrapper {
   width: 960px;
   margin: auto; }
@@ -544,6 +559,9 @@ nav a {
   margin-left: 80px;
   height: 40px; }
 
+.stage_bg {
+  z-index: 0; }
+
 .stage {
   width: auto;
   height: auto;
@@ -554,7 +572,8 @@ nav a {
 .topic_char_gl {
   width: 960px;
   height: 160px;
-  margin-bottom: 30px; }
+  margin-bottom: 30px;
+  font-weight: bold; }
 
 .topic {
   font-size: 54px;

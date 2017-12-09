@@ -1,4 +1,4 @@
-let howManySpinners = 200;
+let howManySpinners = 300;
 let scene = new THREE.Scene();
 let box;
 let controls;
@@ -8,7 +8,7 @@ let model = [];
 //let model = {};
 let model2 = {};
 let model3 = {};
-let rotate_speed = 0.05;
+let rotate_speed = 200;
 let r_radian = 0;
 let c_radian = 0;
 let r_radian_speed =0.01;
@@ -29,8 +29,8 @@ function renderHandSpinner () {
   let gridHelper;
 	let axisHelper;
   let lightHelp;
-  let width = 960;
-  let height = 160;
+  let width = 1440;
+  let height = 6700;
 	let modelPath ;
 
    //light
@@ -41,8 +41,8 @@ function renderHandSpinner () {
   scene.add(ambient);
 
 	//camera
-  camera = new THREE.PerspectiveCamera(45, 4, 1, 1000);
-  camera.position.set(0, 400, 300);
+  camera = new THREE.PerspectiveCamera(45, width/height, 1, 1000);
+  camera.position.set(300, 3000, 2500);
   camera.lookAt(scene.position);
 
   // helper 現在は非表示
@@ -60,13 +60,13 @@ function renderHandSpinner () {
  // controls.autoRotateSpeed = 1.5;
 
   // renderer
-  for (let i= 0 ; i < 4; i++ ) {
-  	renderer[i] = new THREE.WebGLRenderer({ antialias: true });
-  	renderer[i].setSize(width, height);
-  	renderer[i].setClearColor(0xffffff);
-  	renderer[i].setPixelRatio(window.devicePixelRatio);
+  for (let i= 0 ; i < 1; i++ ) {
+  	renderer = new THREE.WebGLRenderer({ antialias: true });
+  	renderer.setSize(width, height);
+  	renderer.setClearColor(0xffffff);
+  	renderer.setPixelRatio(window.devicePixelRatio);
 
-		document.getElementsByClassName('stage')[i].appendChild(renderer[i].domElement);
+		document.getElementsByClassName('stage_bg')[0].appendChild(renderer.domElement);
 	}
 
   //modelPath = '../src/data/handspiner_3d_geo.json';
@@ -83,20 +83,20 @@ function renderHandSpinner () {
       let phongMat = new THREE.MeshPhongMaterial(mat);
       model[i] = new THREE.Mesh(geo, phongMat);
 
-			let randX = 1800 * Math.random()-900;
-			let randY = 700 * Math.random()-150;
-			let randZ = 400 * Math.random()-200;
+			let randX = 90 * Math.random()-70;
+			let randY = 240 * Math.random()+240;
+			let randZ = 70 * Math.random()+30;
 
       if (i==0) {
-				model[i].position.set(0, 20, 0);
+				 model[i].position.set(0, 20, 0);
 			} else {
 				model[i].position.set(randX, randY, randZ);
 			}　　
 
-    	model[i].scale.set(0.5, 0.5, 0.5);　
+    	model[i].scale.set(0.03, 0.03, 0.03);　
     	let randColor = Math.random() * 0xffffff ;　　　
     	model[i].material.color = new THREE.Color(randColor);
-    	model[i].material.opacity = 0.4;
+    	model[i].material.opacity = 0.15;
 			model[i].material.transparent = true;
 			scene.add(model[i]);　　　
 		}
@@ -135,13 +135,13 @@ function render () {
 			r_radian_speed=0;
 			c_radian_speed=0;
 		} else {
-			rotate_speed =  sum_delta_scroll_px/6000 + 0.05;
+			rotate_speed =  sum_delta_scroll_px/4000 + 0.07;
 			r_radian_speed=0.01;
 			c_radian_speed=0.007;
 		}
 
 		model[i].rotation.y += rotate_speed;
-    model[i].position.y += (Math.sin(r_radian) - Math.sin(r_radian-r_radian_speed))*150 ;
+    model[i].position.y += (Math.sin(r_radian) - Math.sin(r_radian-r_radian_speed))*15 ;
 
 
 		if (rotate_speed == 0 ) {
@@ -154,13 +154,13 @@ function render () {
 	}
 
 	c_radian += c_radian_speed;
-  let cameraZ = 150 * (Math.sin(c_radian)) +150;
+  let cameraZ =  5 * (Math.sin(c_radian)) +180;
 	camera.position.set(0, 600, cameraZ);
 
-	for (let i=0; i<4; i++) {
-  	renderer[i].render(scene, camera);
-  	//controls.update();
-	}
+	//for (let i=0; i<4; i++) {
+  renderer.render(scene, camera);
+  //controls.update();
+	// }
 }
 
 
